@@ -3,8 +3,11 @@ package com.mailson.pereira.caju.web.exceptionhandler
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.mailson.pereira.caju.input.exception.AccountNotFoundException
 import com.mailson.pereira.caju.input.exception.CustomerNotFoundException
+import com.mailson.pereira.caju.input.exception.ExistingAvailableMerchantCodeException
+import com.mailson.pereira.caju.input.exception.ExistingMerchantFoundException
 import com.mailson.pereira.caju.input.exception.InvalidMovementBalanceTypeException
 import com.mailson.pereira.caju.input.exception.InvalidMovementValueException
+import com.mailson.pereira.caju.input.exception.MerchantNotFoundException
 import com.mailson.pereira.caju.web.exceptionhandler.dto.GenericException
 import com.mailson.pereira.caju.web.exceptionhandler.dto.GenericExceptionFieldError
 import org.springframework.context.MessageSource
@@ -27,6 +30,51 @@ class ExceptionHandler(
     private val messageSource: MessageSource,
     private val objectMapper: ObjectMapper
 ): ResponseEntityExceptionHandler() {
+
+    // hadndle merchant available code found exception for avoid duplication
+    @ExceptionHandler(value = [ExistingAvailableMerchantCodeException::class])
+    protected fun handleExistingAvailableMerchantCodeException(
+        exception: ExistingAvailableMerchantCodeException,
+        request: WebRequest
+    ): ResponseEntity<GenericException>{
+        val genericException = getGenericException(
+            HttpStatus.NOT_FOUND.value(),
+            "Merchant available code already exists",
+            exception.message!!
+        )
+
+        return ResponseEntity(genericException, HttpStatus.NOT_FOUND)
+    }
+
+    // hadndle merchant found exception for avoid duplication
+    @ExceptionHandler(value = [ExistingMerchantFoundException::class])
+    protected fun handleExistingMerchantFoundException(
+        exception: ExistingMerchantFoundException,
+        request: WebRequest
+    ): ResponseEntity<GenericException>{
+        val genericException = getGenericException(
+            HttpStatus.NOT_FOUND.value(),
+            "Merchant already exists",
+            exception.message!!
+        )
+
+        return ResponseEntity(genericException, HttpStatus.NOT_FOUND)
+    }
+
+    // hadndle merchant not found exception
+    @ExceptionHandler(value = [MerchantNotFoundException::class])
+    protected fun handleMerchantNotFoundException(
+        exception: MerchantNotFoundException,
+        request: WebRequest
+    ): ResponseEntity<GenericException>{
+        val genericException = getGenericException(
+            HttpStatus.NOT_FOUND.value(),
+            "Merchant not found",
+            exception.message!!
+        )
+
+        return ResponseEntity(genericException, HttpStatus.NOT_FOUND)
+    }
 
     // hadndle invalid movement value
     @ExceptionHandler(value = [InvalidMovementValueException::class])
