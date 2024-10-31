@@ -1,11 +1,10 @@
 package com.mailson.pereira.caju.input.customer
 
 import com.mailson.pereira.caju.input.customer.dto.CustomerInputDTO
-import com.mailson.pereira.caju.input.customer.dto.response.CustomerResponseInputDTO
 
 interface CustomerInput {
-    fun save(customerInputDTO: CustomerInputDTO): CustomerResponseInputDTO
-    fun findByName(name: String): List<CustomerResponseInputDTO>
-    fun findByCode(code: String): CustomerResponseInputDTO
-    fun findAll(): List<CustomerResponseInputDTO>
+    fun save(customerInputDTO: CustomerInputDTO): CustomerInputDTO
+    fun findByName(name: String): List<CustomerInputDTO>
+    fun findByCode(code: String): CustomerInputDTO
+    fun findAll(): List<CustomerInputDTO>
 }

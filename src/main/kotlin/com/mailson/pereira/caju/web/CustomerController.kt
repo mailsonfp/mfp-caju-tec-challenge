@@ -3,8 +3,6 @@ package com.mailson.pereira.caju.web
 import com.mailson.pereira.caju.input.customer.CustomerInput
 import com.mailson.pereira.caju.input.customer.dto.CustomerInputDTO
 import com.mailson.pereira.caju.input.customer.dto.CustomerRequestInputDTO
-import com.mailson.pereira.caju.input.customer.dto.response.CustomerResponseInputDTO
-import com.mailson.pereira.caju.service.CustomerService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import org.springframework.http.HttpStatus
@@ -30,7 +28,7 @@ class CustomerController(
         responses = [ ApiResponse(responseCode = "200"), ApiResponse(responseCode = "404")]
     )
     @GetMapping("/all")
-    fun getAllCustomers(): ResponseEntity<List<CustomerResponseInputDTO>>{
+    fun getAllCustomers(): ResponseEntity<List<CustomerInputDTO>>{
         return ResponseEntity.ok(customerInput.findAll())
     }
 
@@ -39,7 +37,7 @@ class CustomerController(
         responses = [ ApiResponse(responseCode = "200"), ApiResponse(responseCode = "404")]
     )
     @GetMapping("/by-name")
-    fun getCustomerByName(@RequestParam(required = true) customerName: String): ResponseEntity<List<CustomerResponseInputDTO>>{
+    fun getCustomerByName(@RequestParam(required = true) customerName: String): ResponseEntity<List<CustomerInputDTO>>{
         return ResponseEntity.ok(customerInput.findByName(customerName))
     }
 
@@ -63,7 +61,7 @@ class CustomerController(
         summary = "API to create new customer",
         responses = [ ApiResponse(responseCode = "201")]
     )
-    fun newCustomer(@RequestBody @Validated newClientInfo: CustomerRequestInputDTO): ResponseEntity<CustomerResponseInputDTO> {
+    fun newCustomer(@RequestBody @Validated newClientInfo: CustomerRequestInputDTO): ResponseEntity<CustomerInputDTO> {
         val newCustomer = customerInput.save(CustomerInputDTO(name = newClientInfo.name))
         return ResponseEntity.ok(newCustomer)
     }

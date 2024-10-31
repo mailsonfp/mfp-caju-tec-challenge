@@ -11,11 +11,10 @@ import org.springframework.http.HttpStatusCode
 import org.springframework.http.ResponseEntity
 import org.springframework.http.converter.HttpMessageNotReadableException
 import org.springframework.validation.FieldError
-import org.springframework.validation.method.MethodValidationException
+import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.MissingServletRequestParameterException
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
-import org.springframework.web.client.HttpClientErrorException.BadRequest
 import org.springframework.web.context.request.WebRequest
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler
 import java.time.LocalDateTime
@@ -40,23 +39,9 @@ class ExceptionHandler(
         return ResponseEntity(genericException, HttpStatus.NOT_FOUND)
     }
 
-    @ExceptionHandler(value = [BadRequest::class])
-    fun handlerUntreatedExceptions(
-        exception: RuntimeException,
-        request: WebRequest
-    ): ResponseEntity<GenericException>{
-        val genericException = getGenericException(
-            HttpStatus.INTERNAL_SERVER_ERROR.value(),
-            "Bad request",
-            exception.message!!
-        )
-
-        return ResponseEntity(genericException, HttpStatus.NOT_FOUND)
-    }
-
     // request with no bbody
     override fun handleHttpMessageNotReadable(
-        exception: HttpMessageNotReadableException,
+        ex: HttpMessageNotReadableException,
         headers: HttpHeaders,
         status: HttpStatusCode,
         request: WebRequest): ResponseEntity<Any>? {
@@ -68,7 +53,7 @@ class ExceptionHandler(
         )
 
         return handleExceptionInternal(
-            exception,
+            ex,
             objectMapper.writeValueAsString(genericException),
             HttpHeaders(),
             HttpStatus.BAD_REQUEST,
@@ -76,13 +61,13 @@ class ExceptionHandler(
         )
     }
 
-    override fun handleMethodValidationException(
-        exception: MethodValidationException,
+    override fun handleMethodArgumentNotValid(
+        ex: MethodArgumentNotValidException,
         headers: HttpHeaders,
-        status: HttpStatus,
+        status: HttpStatusCode,
         request: WebRequest
     ): ResponseEntity<Any>? {
-        val errors = exception.allErrors.map {
+        val errors = ex.allErrors.map {
             val error = it as FieldError
 
             GenericExceptionFieldError(
@@ -99,7 +84,7 @@ class ExceptionHandler(
         )
 
         return handleExceptionInternal(
-            exception,
+            ex,
             objectMapper.writeValueAsString(genericException),
             HttpHeaders(),
             HttpStatus.BAD_REQUEST,
@@ -108,7 +93,7 @@ class ExceptionHandler(
     }
 
     override fun handleMissingServletRequestParameter(
-        exception: MissingServletRequestParameterException,
+        ex: MissingServletRequestParameterException,
         headers: HttpHeaders,
         status: HttpStatusCode,
         request: WebRequest
@@ -116,11 +101,11 @@ class ExceptionHandler(
         val genericException = getGenericException(
             HttpStatus.BAD_REQUEST.value(),
             "Request is not valid",
-            exception.message
+            ex.message
         )
 
         return handleExceptionInternal(
-            exception,
+            ex,
             objectMapper.writeValueAsString(genericException),
             HttpHeaders(),
             HttpStatus.BAD_REQUEST,

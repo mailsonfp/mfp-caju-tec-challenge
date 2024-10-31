@@ -4,7 +4,7 @@ import com.mailson.pereira.caju.output.customer.dto.CustomerOutputDTO
 import jakarta.persistence.*
 
 @Entity
-@Table(name = "customers")
+@Table(name = "customer")
 data class Customer(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

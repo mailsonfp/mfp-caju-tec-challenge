@@ -13,10 +13,7 @@ import org.springframework.stereotype.Repository
 class CustomerRepositoryImplementation(
     private val customerJpaRepository: CustomerJpaRepository,
 ): CustomerRepository {
-    private val loggerWriter = LoggerFactory.getLogger(this::class.java)
-
     override fun save(customerOutputDTO: CustomerOutputDTO): CustomerOutputDTO {
-
         return customerJpaRepository.save(customerOutputDTO.toEntity()).toOuputDTO()
     }
 
