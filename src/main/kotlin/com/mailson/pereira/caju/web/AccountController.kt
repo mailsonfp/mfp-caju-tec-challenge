@@ -5,6 +5,8 @@ import com.mailson.pereira.caju.input.account.dto.AccountInputDTO
 import com.mailson.pereira.caju.input.account.dto.enums.AccountStatusEnum
 import com.mailson.pereira.caju.input.account.dto.request.AccountMovementRequestInputDTO
 import com.mailson.pereira.caju.input.account.dto.request.AccountRequestInputDTO
+import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.responses.ApiResponse
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.annotation.Validated
@@ -18,13 +20,16 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
-import java.net.URI
 
 @RestController
 @RequestMapping("v1/account")
 class AccountController(
     private val accountInput: AccountInput
 ) {
+    @Operation(
+        summary = "API to get accouunts by customers",
+        responses = [ ApiResponse(responseCode = "200"), ApiResponse(responseCode = "404")]
+    )
     @GetMapping("/accounts-by-customer")
     fun getAccountsByCustomerCode(@RequestParam(required = true) customerCode: String): ResponseEntity<List<AccountInputDTO>> {
         return ResponseEntity.ok(accountInput.findAccountsByCustomerCode(customerCode))

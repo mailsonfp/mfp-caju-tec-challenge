@@ -36,7 +36,7 @@ class ExceptionHandler(
     ): ResponseEntity<GenericException>{
         val genericException = getGenericException(
             HttpStatus.NOT_FOUND.value(),
-            "No active active accounts",
+            "Invalid movement value",
             exception.message!!
         )
 
@@ -66,7 +66,7 @@ class ExceptionHandler(
     ): ResponseEntity<GenericException>{
         val genericException = getGenericException(
             HttpStatus.NOT_FOUND.value(),
-            "No active active accounts",
+            "Accounts not found",
             exception.message!!
         )
 
