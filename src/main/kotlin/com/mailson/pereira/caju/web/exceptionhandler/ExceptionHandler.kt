@@ -1,0 +1,145 @@
+package com.mailson.pereira.caju.web.exceptionhandler
+
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.mailson.pereira.caju.input.exception.CustomerNotFoundException
+import com.mailson.pereira.caju.web.exceptionhandler.dto.GenericException
+import com.mailson.pereira.caju.web.exceptionhandler.dto.GenericExceptionFieldError
+import org.springframework.context.MessageSource
+import org.springframework.http.HttpHeaders
+import org.springframework.http.HttpStatus
+import org.springframework.http.HttpStatusCode
+import org.springframework.http.ResponseEntity
+import org.springframework.http.converter.HttpMessageNotReadableException
+import org.springframework.validation.FieldError
+import org.springframework.validation.method.MethodValidationException
+import org.springframework.web.bind.MissingServletRequestParameterException
+import org.springframework.web.bind.annotation.ControllerAdvice
+import org.springframework.web.bind.annotation.ExceptionHandler
+import org.springframework.web.client.HttpClientErrorException.BadRequest
+import org.springframework.web.context.request.WebRequest
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler
+import java.time.LocalDateTime
+
+@ControllerAdvice
+class ExceptionHandler(
+    private val messageSource: MessageSource,
+    private val objectMapper: ObjectMapper
+): ResponseEntityExceptionHandler() {
+
+    @ExceptionHandler(value = [CustomerNotFoundException::class])
+    protected fun handleCustomerNotFoundException(
+        exception: CustomerNotFoundException,
+        request: WebRequest
+    ): ResponseEntity<GenericException>{
+        val genericException = getGenericException(
+            HttpStatus.NOT_FOUND.value(),
+            "Customer not found",
+            exception.message!!
+        )
+
+        return ResponseEntity(genericException, HttpStatus.NOT_FOUND)
+    }
+
+    @ExceptionHandler(value = [BadRequest::class])
+    fun handlerUntreatedExceptions(
+        exception: RuntimeException,
+        request: WebRequest
+    ): ResponseEntity<GenericException>{
+        val genericException = getGenericException(
+            HttpStatus.INTERNAL_SERVER_ERROR.value(),
+            "Bad request",
+            exception.message!!
+        )
+
+        return ResponseEntity(genericException, HttpStatus.NOT_FOUND)
+    }
+
+    // request with no bbody
+    override fun handleHttpMessageNotReadable(
+        exception: HttpMessageNotReadableException,
+        headers: HttpHeaders,
+        status: HttpStatusCode,
+        request: WebRequest): ResponseEntity<Any>? {
+
+        val genericException = getGenericException(
+            HttpStatus.BAD_REQUEST.value(),
+            "Message not readable",
+            "Check the body of the request to be a valid request"
+        )
+
+        return handleExceptionInternal(
+            exception,
+            objectMapper.writeValueAsString(genericException),
+            HttpHeaders(),
+            HttpStatus.BAD_REQUEST,
+            request
+        )
+    }
+
+    override fun handleMethodValidationException(
+        exception: MethodValidationException,
+        headers: HttpHeaders,
+        status: HttpStatus,
+        request: WebRequest
+    ): ResponseEntity<Any>? {
+        val errors = exception.allErrors.map {
+            val error = it as FieldError
+
+            GenericExceptionFieldError(
+                field = error.field,
+                message = error.defaultMessage ?: "error"
+            )
+        }
+
+        val genericException = getGenericException(
+            HttpStatus.BAD_REQUEST.value(),
+            "Request is not valid",
+            "Check the parameters for a valid request",
+            errors
+        )
+
+        return handleExceptionInternal(
+            exception,
+            objectMapper.writeValueAsString(genericException),
+            HttpHeaders(),
+            HttpStatus.BAD_REQUEST,
+            request
+        )
+    }
+
+    override fun handleMissingServletRequestParameter(
+        exception: MissingServletRequestParameterException,
+        headers: HttpHeaders,
+        status: HttpStatusCode,
+        request: WebRequest
+    ): ResponseEntity<Any>? {
+        val genericException = getGenericException(
+            HttpStatus.BAD_REQUEST.value(),
+            "Request is not valid",
+            exception.message
+        )
+
+        return handleExceptionInternal(
+            exception,
+            objectMapper.writeValueAsString(genericException),
+            HttpHeaders(),
+            HttpStatus.BAD_REQUEST,
+            request
+        )
+    }
+
+    fun getGenericException(
+        statusCode: Int,
+        messageTitle: String,
+        messageDetail: String,
+        fieldErrors: List<GenericExceptionFieldError>? = null
+    ): GenericException {
+        return GenericException(
+            timestamp = LocalDateTime.now().toString(),
+            statusCode = statusCode,
+            messageTitle = messageTitle,
+            messageDetail = messageDetail,
+            fieldErrors = fieldErrors
+        )
+    }
+}
