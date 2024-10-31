@@ -2,8 +2,13 @@ package com.mailson.pereira.caju.repository.domain
 
 import com.mailson.pereira.caju.output.account.dto.AccountOutputDTO
 import com.mailson.pereira.caju.output.customer.dto.CustomerOutputDTO
-import jakarta.persistence.*
-import java.math.BigDecimal
+import jakarta.persistence.Entity
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
+import jakarta.persistence.Id
+import jakarta.persistence.JoinColumn
+import jakarta.persistence.ManyToOne
+import jakarta.persistence.Table
 
 @Entity
 @Table(name = "account")
@@ -16,7 +21,7 @@ data class Account(
     @JoinColumn(name = "customer_id")
     val customer: Customer,
 
-    val accountStatus: String
+    var accountStatus: String
 )
 
 fun Account.toOutputDTO() = AccountOutputDTO(

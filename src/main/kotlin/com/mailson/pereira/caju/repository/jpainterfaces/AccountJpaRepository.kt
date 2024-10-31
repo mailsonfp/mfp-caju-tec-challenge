@@ -7,6 +7,8 @@ import java.util.Optional
 
 interface AccountJpaRepository : JpaRepository<Account, Long>{
 
-    @Query("FROM Account acc where acc.customer.code = :customerCode and acc.accountStatus = :accountStatus")
-    fun findAccountsByCustomerCode(customerCode: String, accountStatus: String): Optional<Account>
+    fun findByIdAndAccountStatus(id: Long, accountStatus: String): Optional<Account>
+
+    @Query("FROM Account ac where ac.customer.code = :customerCode")
+    fun findAccountsByCustomerCode(customerCode: String): List<Account>
 }

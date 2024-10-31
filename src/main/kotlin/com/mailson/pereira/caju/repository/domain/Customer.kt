@@ -1,7 +1,11 @@
 package com.mailson.pereira.caju.repository.domain
 
 import com.mailson.pereira.caju.output.customer.dto.CustomerOutputDTO
-import jakarta.persistence.*
+import jakarta.persistence.Entity
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
+import jakarta.persistence.Id
+import jakarta.persistence.Table
 
 @Entity
 @Table(name = "customer")
@@ -11,7 +15,6 @@ data class Customer(
     val id: Long? = null,
 
     val code: String,
-
     val name: String
 )
 

@@ -1,7 +1,10 @@
 package com.mailson.pereira.caju.web.exceptionhandler
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.mailson.pereira.caju.input.exception.AccountNotFoundException
 import com.mailson.pereira.caju.input.exception.CustomerNotFoundException
+import com.mailson.pereira.caju.input.exception.InvalidMovementBalanceTypeException
+import com.mailson.pereira.caju.input.exception.InvalidMovementValueException
 import com.mailson.pereira.caju.web.exceptionhandler.dto.GenericException
 import com.mailson.pereira.caju.web.exceptionhandler.dto.GenericExceptionFieldError
 import org.springframework.context.MessageSource
@@ -25,6 +28,52 @@ class ExceptionHandler(
     private val objectMapper: ObjectMapper
 ): ResponseEntityExceptionHandler() {
 
+    // hadndle invalid movement value
+    @ExceptionHandler(value = [InvalidMovementValueException::class])
+    protected fun handleInvalidMovementValueException(
+        exception: InvalidMovementValueException,
+        request: WebRequest
+    ): ResponseEntity<GenericException>{
+        val genericException = getGenericException(
+            HttpStatus.NOT_FOUND.value(),
+            "No active active accounts",
+            exception.message!!
+        )
+
+        return ResponseEntity(genericException, HttpStatus.NOT_FOUND)
+    }
+
+    // handle invalid type exception
+    @ExceptionHandler(value = [InvalidMovementBalanceTypeException::class])
+    protected fun handleInvalidMovementBalanceTypeException(
+        exception: InvalidMovementBalanceTypeException,
+        request: WebRequest
+    ): ResponseEntity<GenericException>{
+        val genericException = getGenericException(
+            HttpStatus.NOT_FOUND.value(),
+            "Invalid movement type",
+            exception.message!!
+        )
+
+        return ResponseEntity(genericException, HttpStatus.NOT_FOUND)
+    }
+
+    // hadndle customer not found
+    @ExceptionHandler(value = [AccountNotFoundException::class])
+    protected fun handleAccountNotFoundException(
+        exception: AccountNotFoundException,
+        request: WebRequest
+    ): ResponseEntity<GenericException>{
+        val genericException = getGenericException(
+            HttpStatus.NOT_FOUND.value(),
+            "No active active accounts",
+            exception.message!!
+        )
+
+        return ResponseEntity(genericException, HttpStatus.NOT_FOUND)
+    }
+
+    // hadndle customer not found
     @ExceptionHandler(value = [CustomerNotFoundException::class])
     protected fun handleCustomerNotFoundException(
         exception: CustomerNotFoundException,

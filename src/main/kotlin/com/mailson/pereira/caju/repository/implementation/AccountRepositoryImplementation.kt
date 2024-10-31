@@ -44,7 +44,13 @@ class AccountRepositoryImplementation(
         return accountJpaRepository.findById(accountId).getOrNull()?.toOutputDTO()
     }
 
-    override fun findAccountByCustomerCode(customerCode: String, accountStatus: String): AccountOutputDTO? {
-        return accountJpaRepository.findAccountsByCustomerCode(customerCode, accountStatus).getOrNull()?.toOutputDTO()
+    override fun findActiveAccountById(accountId: Long, accountStatus: String): AccountOutputDTO? {
+        return accountJpaRepository.findByIdAndAccountStatus(accountId, accountStatus).getOrNull()?.toOutputDTO()
+    }
+
+    override fun findAccountsByCustomerCode(customerCode: String): List<AccountOutputDTO> {
+        return accountJpaRepository.findAccountsByCustomerCode(customerCode).map {
+            it.toOutputDTO()
+        }
     }
 }

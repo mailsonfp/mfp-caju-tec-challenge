@@ -2,7 +2,13 @@ package com.mailson.pereira.caju.repository.domain
 
 import com.mailson.pereira.caju.output.account.dto.AccountBalanceOutputDTO
 import com.mailson.pereira.caju.output.account.dto.AccountOutputDTO
-import jakarta.persistence.*
+import jakarta.persistence.Entity
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
+import jakarta.persistence.Id
+import jakarta.persistence.JoinColumn
+import jakarta.persistence.ManyToOne
+import jakarta.persistence.Table
 import java.math.BigDecimal
 
 @Entity
@@ -17,8 +23,7 @@ data class AccountBalance (
     val account: Account,
 
     val balanceType: String,
-
-    val balance: BigDecimal?
+    var balance: BigDecimal?
 )
 
 fun AccountBalance.toOutputDTO() = AccountBalanceOutputDTO(

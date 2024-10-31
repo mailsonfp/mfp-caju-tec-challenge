@@ -6,5 +6,5 @@ data class AccountBalanceOutputDTO (
     val id: Long? = null,
     val account: AccountOutputDTO,
     val balanceType: String,
-    val balance: BigDecimal? = BigDecimal.ZERO
+    var balance: BigDecimal? = BigDecimal.ZERO
 )

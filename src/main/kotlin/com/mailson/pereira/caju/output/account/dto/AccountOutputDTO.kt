@@ -6,5 +6,5 @@ import java.math.BigDecimal
 data class AccountOutputDTO (
     val id: Long? = null,
     val customer: CustomerOutputDTO,
-    val accountStatus: String
+    var accountStatus: String
 )

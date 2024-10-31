@@ -1,8 +1,15 @@
 package com.mailson.pereira.caju.input.account.dto.request
 
-import kotlin.jvm.internal.Ref.LongRef
+import jakarta.validation.constraints.NotNull
+import java.math.BigDecimal
 
 data class AccountMovementRequestInputDTO (
-    val customerCode: String,
-    val accountId: String
+    @field:NotNull
+    val movementAccountId: String,
+    @field:NotNull
+    val movementBalanceType: String,
+    @field:NotNull
+    val movementOperation: String,
+    @field:NotNull
+    val movementValue: BigDecimal
 )
