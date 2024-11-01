@@ -8,8 +8,10 @@ import com.mailson.pereira.caju.input.exception.ExistingMerchantFoundException
 import com.mailson.pereira.caju.input.exception.InvalidMovementBalanceTypeException
 import com.mailson.pereira.caju.input.exception.InvalidMovementValueException
 import com.mailson.pereira.caju.input.exception.MerchantNotFoundException
+import com.mailson.pereira.caju.input.exception.TransactionAuthorizeProcessException
 import com.mailson.pereira.caju.web.exceptionhandler.dto.GenericException
 import com.mailson.pereira.caju.web.exceptionhandler.dto.GenericExceptionFieldError
+import com.mailson.pereira.caju.web.exceptionhandler.dto.TransactionResponseException
 import org.springframework.context.MessageSource
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
@@ -31,7 +33,18 @@ class ExceptionHandler(
     private val objectMapper: ObjectMapper
 ): ResponseEntityExceptionHandler() {
 
-    // hadndle merchant available code found exception for avoid duplication
+    // hadle for exceptions during authorize process
+    @ExceptionHandler(value = [TransactionAuthorizeProcessException::class])
+    protected fun handleTransactionAuthorizeProcessException(
+        exception: TransactionAuthorizeProcessException,
+        request: WebRequest
+    ): ResponseEntity<TransactionResponseException>{
+        val transactionExceptionResponse = TransactionResponseException(exception.message!!)
+
+        return ResponseEntity(transactionExceptionResponse, HttpStatus.NOT_FOUND)
+    }
+
+    // handle merchant available code found exception for avoid duplication
     @ExceptionHandler(value = [ExistingAvailableMerchantCodeException::class])
     protected fun handleExistingAvailableMerchantCodeException(
         exception: ExistingAvailableMerchantCodeException,
@@ -46,7 +59,7 @@ class ExceptionHandler(
         return ResponseEntity(genericException, HttpStatus.NOT_FOUND)
     }
 
-    // hadndle merchant found exception for avoid duplication
+    // handle merchant found exception for avoid duplication
     @ExceptionHandler(value = [ExistingMerchantFoundException::class])
     protected fun handleExistingMerchantFoundException(
         exception: ExistingMerchantFoundException,
@@ -61,7 +74,7 @@ class ExceptionHandler(
         return ResponseEntity(genericException, HttpStatus.NOT_FOUND)
     }
 
-    // hadndle merchant not found exception
+    // handle merchant not found exception
     @ExceptionHandler(value = [MerchantNotFoundException::class])
     protected fun handleMerchantNotFoundException(
         exception: MerchantNotFoundException,
@@ -76,7 +89,7 @@ class ExceptionHandler(
         return ResponseEntity(genericException, HttpStatus.NOT_FOUND)
     }
 
-    // hadndle invalid movement value
+    // handle invalid movement value
     @ExceptionHandler(value = [InvalidMovementValueException::class])
     protected fun handleInvalidMovementValueException(
         exception: InvalidMovementValueException,
@@ -106,7 +119,7 @@ class ExceptionHandler(
         return ResponseEntity(genericException, HttpStatus.NOT_FOUND)
     }
 
-    // hadndle customer not found
+    // handle customer not found
     @ExceptionHandler(value = [AccountNotFoundException::class])
     protected fun handleAccountNotFoundException(
         exception: AccountNotFoundException,
@@ -121,7 +134,7 @@ class ExceptionHandler(
         return ResponseEntity(genericException, HttpStatus.NOT_FOUND)
     }
 
-    // hadndle customer not found
+    // handle customer not found
     @ExceptionHandler(value = [CustomerNotFoundException::class])
     protected fun handleCustomerNotFoundException(
         exception: CustomerNotFoundException,
