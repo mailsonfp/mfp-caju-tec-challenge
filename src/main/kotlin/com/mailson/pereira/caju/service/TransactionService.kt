@@ -31,6 +31,7 @@ class TransactionService(
     private val loggerWriter = LoggerFactory.getLogger(this::class.java)
 
     override fun authorize(transactionRequest: TransactionInputRequestDTO): TransactionResponseDTO {
+        loggerWriter.info("method=authorize, status=init, request=$transactionRequest")
         try {
             val merchant = merchantInput.findByMerchantName(transactionRequest.merchant)
             val account = accountInput.getAccountAndBalanceById(transactionRequest.account)
