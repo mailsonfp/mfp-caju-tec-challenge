@@ -35,6 +35,10 @@ class AccountController(
         return ResponseEntity.ok(accountInput.findAccountsByCustomerCode(customerCode))
     }
 
+    @Operation(
+        summary = "API to create a new account for a customer",
+        responses = [ ApiResponse(responseCode = "200"), ApiResponse(responseCode = "404"), ApiResponse(responseCode = "400")]
+    )
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     fun createAccount(@RequestBody @Validated accountRequestInputDTO: AccountRequestInputDTO): ResponseEntity<Any>{
@@ -42,24 +46,40 @@ class AccountController(
         return ResponseEntity.ok(newAccount)
     }
 
+    @Operation(
+        summary = "API to ge a account by id wit balances",
+        responses = [ ApiResponse(responseCode = "200"), ApiResponse(responseCode = "404")]
+    )
     @GetMapping("/{accountId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun accountWithBalance(@PathVariable accountId: String): ResponseEntity<Any>{
         return ResponseEntity.ok(accountInput.getAccountAndBalanceById(accountId))
     }
 
+    @Operation(
+        summary = "API to inactivate an account",
+        responses = [ ApiResponse(responseCode = "200"), ApiResponse(responseCode = "404")]
+    )
     @DeleteMapping("/{accountId}")
     fun inactivateAccount(@PathVariable accountId: String): ResponseEntity<Any>{
         accountInput.manageAccountStatus(accountId, AccountStatusEnum.INACTIVE)
         return ResponseEntity.noContent().build()
     }
 
+    @Operation(
+        summary = "API to activate an account",
+        responses = [ ApiResponse(responseCode = "200"), ApiResponse(responseCode = "404"), ApiResponse(responseCode = "400")]
+    )
     @PutMapping("/{accountId}")
     fun activateAccount(@PathVariable accountId: String): ResponseEntity<Any>{
         accountInput.manageAccountStatus(accountId, AccountStatusEnum.ACTIVE)
         return ResponseEntity.noContent().build()
     }
 
+    @Operation(
+        summary = "API to movement the account",
+        responses = [ ApiResponse(responseCode = "200"), ApiResponse(responseCode = "404"), ApiResponse(responseCode = "400")]
+    )
     @PostMapping("/movements")
     @ResponseStatus(HttpStatus.CREATED)
     fun movementAccount(@RequestBody @Validated accountMovementRequestInputDTO: AccountMovementRequestInputDTO): ResponseEntity<Any>{

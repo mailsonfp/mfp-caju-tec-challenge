@@ -4,6 +4,8 @@ import com.mailson.pereira.caju.input.merchant.MerchantInput
 import com.mailson.pereira.caju.input.merchant.dto.MerchantInputDTO
 import com.mailson.pereira.caju.input.merchant.dto.request.MerchantAvailableMccRequestInputDTO
 import com.mailson.pereira.caju.input.merchant.dto.request.MerchantRequestInputDTO
+import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.responses.ApiResponse
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.annotation.Validated
@@ -22,23 +24,39 @@ class MerchantController(
     private val merchantInput: MerchantInput
 ) {
 
+    @Operation(
+        summary = "API to get all merchants",
+        responses = [ ApiResponse(responseCode = "200"), ApiResponse(responseCode = "404")]
+    )
     @GetMapping("/all")
     fun getAllMerchant(): ResponseEntity<List<MerchantInputDTO>>{
         return ResponseEntity.ok(merchantInput.getAllMerchant())
     }
 
+    @Operation(
+        summary = "API to get a merchant by name",
+        responses = [ ApiResponse(responseCode = "200"), ApiResponse(responseCode = "404")]
+    )
     @GetMapping("/by-name")
     fun getMerchantByName(@RequestParam merchantName: String): ResponseEntity<MerchantInputDTO>{
         return ResponseEntity.ok(merchantInput.findByMerchantName(merchantName))
     }
 
+    @Operation(
+        summary = "API to create a new merchant",
+        responses = [ ApiResponse(responseCode = "200"), ApiResponse(responseCode = "404"), ApiResponse(responseCode = "400")]
+    )
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     fun newMerchant(@RequestBody @Validated merchantRequestInputDTO: MerchantRequestInputDTO): ResponseEntity<MerchantInputDTO>{
         return ResponseEntity.ok(merchantInput.save(merchantRequestInputDTO))
     }
 
-    @PutMapping()
+    @Operation(
+        summary = "API to add an mcc code to a merchant",
+        responses = [ ApiResponse(responseCode = "200"), ApiResponse(responseCode = "404"), ApiResponse(responseCode = "400")]
+    )
+    @PutMapping
     @ResponseStatus(HttpStatus.CREATED)
     fun newAvailableMerchant(@RequestBody @Validated merchantAvailableMccRequestInputDTO: MerchantAvailableMccRequestInputDTO): ResponseEntity<Any>{
         merchantInput.addAvailableMCC(merchantAvailableMccRequestInputDTO)

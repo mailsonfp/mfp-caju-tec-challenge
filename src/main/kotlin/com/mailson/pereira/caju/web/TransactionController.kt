@@ -4,6 +4,8 @@ import com.mailson.pereira.caju.input.transaction.TransactionInput
 import com.mailson.pereira.caju.input.transaction.dto.request.TransactionInputRequestDTO
 import com.mailson.pereira.caju.input.transaction.dto.enums.TransactionResponseCodeEnum
 import com.mailson.pereira.caju.input.transaction.dto.response.TransactionResponseDTO
+import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.responses.ApiResponse
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
@@ -18,6 +20,10 @@ class TransactionController(
     private val transactionInput: TransactionInput
 ) {
 
+    @Operation(
+        summary = "API to authorize a transaction",
+        responses = [ ApiResponse(responseCode = "200")]
+    )
     @PostMapping("/authorize")
     @ResponseStatus(HttpStatus.OK)
     fun authorize(@RequestBody transactionInputRequestDTO: TransactionInputRequestDTO): ResponseEntity<TransactionResponseDTO> {

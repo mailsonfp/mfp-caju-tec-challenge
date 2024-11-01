@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
-import java.util.UUID
 
 @RestController
 @RequestMapping("v1/customer")
@@ -49,12 +48,7 @@ class CustomerController(
     fun getCustomerByCode(@PathVariable customerCode: String): ResponseEntity<Any>{
         return ResponseEntity.ok(customerInput.findByCode(customerCode))
     }
-
-    @GetMapping("/by-code/{customerCode}/accounts")
-    fun getCustomerAccounts(@PathVariable customerCode: String): ResponseEntity<Any>{
-        return ResponseEntity.ok("Retornar Contas do cliente")
-    }
-
+    
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(
