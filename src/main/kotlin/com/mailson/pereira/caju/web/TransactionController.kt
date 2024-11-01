@@ -24,7 +24,7 @@ class TransactionController(
         summary = "API to authorize a transaction",
         responses = [ ApiResponse(responseCode = "200")]
     )
-    @PostMapping("/authorize")
+    @PostMapping("/authorization")
     @ResponseStatus(HttpStatus.OK)
     fun authorize(@RequestBody transactionInputRequestDTO: TransactionInputRequestDTO): ResponseEntity<TransactionResponseDTO> {
         return ResponseEntity.ok(
