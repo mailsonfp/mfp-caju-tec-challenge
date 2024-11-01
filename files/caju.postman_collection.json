@@ -1,0 +1,406 @@
+{
+	"info": {
+		"_postman_id": "129a1448-43f0-482d-bc96-657b45275436",
+		"name": "caju",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11694702"
+	},
+	"item": [
+		{
+			"name": "customer-create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Customer Ana\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/customer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"customer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "customer-by-name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/customer/by-name?customerName=Customer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"customer",
+						"by-name"
+					],
+					"query": [
+						{
+							"key": "customerName",
+							"value": "Customer"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "customer-by-code",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/customer/by-code/ded98fb1-dfc5-404b-b923-4046a816df44",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"customer",
+						"by-code",
+						"ded98fb1-dfc5-404b-b923-4046a816df44"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "customer-all",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/customer/all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"customer",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "account-get-active",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"customerCode\": \"dbf48c14-39e7-4dc8-99bb-f6725e28657e\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/account/accounts-by-customer?customerCode=4ceecdc9-6e17-4519-a801-d27d066701a0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"account",
+						"accounts-by-customer"
+					],
+					"query": [
+						{
+							"key": "customerCode",
+							"value": "4ceecdc9-6e17-4519-a801-d27d066701a0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "account-create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"customerCode\": \"dbf48c14-39e7-4dc8-99bb-f6725e28657e\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/account",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"account"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "account-activate",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/account/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"account",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "account-inactivate",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/account/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"account",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "account-get-with-balance",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/account/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"account",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "account-movement",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"movementAccountId\": \"2\",\r\n    \"movementBalanceType\": \"CASH\",\r\n    \"movementOperation\": \"CREDIT\",\r\n    \"movementValue\": 1800.0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/account/movements",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"account",
+						"movements"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "merchant-all",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/merchant/all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"merchant",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "merchant-create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"merchantName\": \"PICPAY*BILHETEUNICO           GOIANIA BR\",\r\n    \"principalMCC\": \"CASH\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/merchant",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"merchant"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "merchant-get-by-name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/merchant/by-name?merchantName=UBER TRIP                   SAO PAULO BR",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"merchant",
+						"by-name"
+					],
+					"query": [
+						{
+							"key": "merchantName",
+							"value": "UBER TRIP                   SAO PAULO BR"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "merchant-add-code",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"merchantName\": \"PAG*JoseDaSilva          RIO DE JANEI BR\",\r\n    \"mccCode\": \"5412\"\r\n}\r\n    ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/merchant",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"merchant"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "transaction-authorize",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"account\": \"50\",\r\n\t\"totalAmount\": 900.00,\r\n\t\"mcc\": \"5412\",\r\n\t\"merchant\": \"UBER TRIP                   SAO PAULO BR\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/transaction/authorization",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"transaction",
+						"authorization"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,91 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.7.5 Chrome/126.0.6478.183 Electron/31.3.0 Safari/537.36" version="24.7.5">
+  <diagram name="basic-aws-fllow" id="BbmuytPrkCjeZDYoZWt_">
+    <mxGraphModel dx="1036" dy="606" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="dposgno1MvYaFtgrXpZA-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="dposgno1MvYaFtgrXpZA-7" target="dposgno1MvYaFtgrXpZA-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dposgno1MvYaFtgrXpZA-7" value="MSProcessTransaction" style="outlineConnect=0;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;shape=mxgraph.aws3.android;fillColor=#EE472A;gradientColor=none;" vertex="1" parent="1">
+          <mxGeometry x="264.88" y="50" width="73.5" height="84" as="geometry" />
+        </mxCell>
+        <mxCell id="dposgno1MvYaFtgrXpZA-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="dposgno1MvYaFtgrXpZA-12" target="dposgno1MvYaFtgrXpZA-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dposgno1MvYaFtgrXpZA-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="dposgno1MvYaFtgrXpZA-12" target="dposgno1MvYaFtgrXpZA-22">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dposgno1MvYaFtgrXpZA-12" value="Processa a autorização da transação" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="220.01" y="200" width="163.25" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="dposgno1MvYaFtgrXpZA-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="dposgno1MvYaFtgrXpZA-14" target="dposgno1MvYaFtgrXpZA-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dposgno1MvYaFtgrXpZA-14" value="Retorna o status da autorização" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="500" y="200" width="163.25" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="dposgno1MvYaFtgrXpZA-16" value="" style="ellipse;html=1;shape=endState;fillColor=#000000;strokeColor=#ff0000;" vertex="1" parent="1">
+          <mxGeometry x="770" y="210" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dposgno1MvYaFtgrXpZA-18" value="v1/transaction/authorization" style="aspect=fixed;sketch=0;html=1;dashed=0;whitespace=wrap;verticalLabelPosition=bottom;verticalAlign=top;fillColor=#2875E2;strokeColor=#ffffff;points=[[0.005,0.63,0],[0.1,0.2,0],[0.9,0.2,0],[0.5,0,0],[0.995,0.63,0],[0.72,0.99,0],[0.5,1,0],[0.28,0.99,0]];shape=mxgraph.kubernetes.icon2;prIcon=api" vertex="1" parent="1">
+          <mxGeometry x="60" y="66" width="54.17" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="dposgno1MvYaFtgrXpZA-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="dposgno1MvYaFtgrXpZA-18" target="dposgno1MvYaFtgrXpZA-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dposgno1MvYaFtgrXpZA-21" value="TransactionProcessedQueue" style="outlineConnect=0;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;shape=mxgraph.aws3.sqs;fillColor=#D9A741;gradientColor=none;" vertex="1" parent="1">
+          <mxGeometry x="263.385" y="460" width="76.5" height="93" as="geometry" />
+        </mxCell>
+        <mxCell id="dposgno1MvYaFtgrXpZA-22" value="Encaminha para uma fila de transções processadas" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="220.01" y="320" width="163.25" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="dposgno1MvYaFtgrXpZA-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="dposgno1MvYaFtgrXpZA-22" target="dposgno1MvYaFtgrXpZA-21">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dposgno1MvYaFtgrXpZA-32" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="dposgno1MvYaFtgrXpZA-25" target="dposgno1MvYaFtgrXpZA-31">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dposgno1MvYaFtgrXpZA-25" value="MSProcessedTransaction" style="outlineConnect=0;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;shape=mxgraph.aws3.android;fillColor=#EE472A;gradientColor=none;" vertex="1" parent="1">
+          <mxGeometry x="570" y="464.5" width="73.5" height="84" as="geometry" />
+        </mxCell>
+        <mxCell id="dposgno1MvYaFtgrXpZA-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="dposgno1MvYaFtgrXpZA-21" target="dposgno1MvYaFtgrXpZA-25">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dposgno1MvYaFtgrXpZA-34" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="dposgno1MvYaFtgrXpZA-31" target="dposgno1MvYaFtgrXpZA-33">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dposgno1MvYaFtgrXpZA-31" value="Recebe a transação processada" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="525.12" y="650" width="163.25" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="dposgno1MvYaFtgrXpZA-36" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="dposgno1MvYaFtgrXpZA-33" target="dposgno1MvYaFtgrXpZA-35">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dposgno1MvYaFtgrXpZA-33" value="Realiza o lançamento em conta" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="525.12" y="770" width="163.25" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="dposgno1MvYaFtgrXpZA-41" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="dposgno1MvYaFtgrXpZA-35" target="dposgno1MvYaFtgrXpZA-40">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dposgno1MvYaFtgrXpZA-35" value="Atualiza saldo" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="525.12" y="890" width="163.25" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="dposgno1MvYaFtgrXpZA-37" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;&lt;span style=&quot;font-size: 12px; font-weight: 400;&quot;&gt;Nesse ponto, deve existir uma estrutura de retry para garantir que a transação seja lançada em caso de erro&lt;/span&gt;&lt;/h1&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="300" y="710" width="180" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="dposgno1MvYaFtgrXpZA-39" value="" style="ellipse;html=1;shape=endState;fillColor=#000000;strokeColor=#ff0000;" vertex="1" parent="1">
+          <mxGeometry x="591.75" y="1100" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dposgno1MvYaFtgrXpZA-42" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="dposgno1MvYaFtgrXpZA-40" target="dposgno1MvYaFtgrXpZA-39">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dposgno1MvYaFtgrXpZA-40" value="Notifica via tópico sobre transação lançada" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="525.12" y="1000" width="163.25" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="dposgno1MvYaFtgrXpZA-43" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;&lt;span style=&quot;font-size: 12px; font-weight: 400;&quot;&gt;Caso exista a necessidade e outras áreas terem conhecimento sobre a transação lançada em conta&lt;/span&gt;&lt;/h1&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="300" y="965" width="180" height="120" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
